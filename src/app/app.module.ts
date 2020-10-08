@@ -10,6 +10,7 @@ import { MyServiceCallingComponent } from './my-service-calling/my-service-calli
 import { MyMathHttpService } from './my-service-calling/my-math-http.service';
 import { MyParentComponent } from './my-parent/my-parent.component';
 import { MyChildComponent } from './my-child/my-child.component';
+import { MyHttpService } from './shared/my-http.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { MyChildComponent } from './my-child/my-child.component';
     BrowserModule, HttpClientModule,
     AppRoutingModule
   ],
-  providers: [LoggerService, MyMathHttpService],
+  providers: [LoggerService, MyHttpService, MyMathHttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

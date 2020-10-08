@@ -2,26 +2,32 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.8.
 
-## Development server
+The sole intention of this project is to show various scenarios of writing Angular Unit Tests
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+1. `MyMathComponent`
+  - Starts with simplest scenarios, calling component method, handling error, resolving external dependencies, and then doing asserts
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. `MyHttpService`
+  - Wrapper of `HttpClient` used for the application
+  - Application will be communicating to the server via this wrapper, not directly
 
-## Build
+1. `MyServiceCallingComponent`
+  - This component calls `MyMathHttpService` to perform asynchronous operations and sets values to its member variables
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+1. `MyMathHttpService`
+  - Called by the above component, which in turn calls MyHttpService
 
-## Running unit tests
+1. `LoggerService`
+  - Used by components to log various messages. Application doesn't directly logs usinng `console.log`/`error`
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. `MyParentComponent`
+  - Parent of `MyChildComponent`
 
-## Running end-to-end tests
+1. `MyChildComponent`
+  - Child of `MyParentComponent`
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+# TODO:
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+- coverage report
+- karma parallel

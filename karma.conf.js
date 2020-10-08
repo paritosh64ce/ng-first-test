@@ -4,9 +4,11 @@
 module.exports = function (config) {
   config.set({
     basePath: '',
-    frameworks: ['jasmine', '@angular-devkit/build-angular'],
+    // frameworks: ['parallel', 'jasmine', '@angular-devkit/build-angular'],
+    frameworks: ['parallel', 'jasmine', '@angular-devkit/build-angular'],
     plugins: [
       require('karma-jasmine'),
+      require('karma-parallel'),
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage-istanbul-reporter'),
@@ -27,6 +29,10 @@ module.exports = function (config) {
     autoWatch: true,
     browsers: ['Chrome'],
     singleRun: false,
-    restartOnFileChange: true
+    restartOnFileChange: true,
+    parallelOptions: {
+      executors: 2,
+      shardStrategy: 'round-robin'
+    }
   });
 };
