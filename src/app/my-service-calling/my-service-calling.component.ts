@@ -34,6 +34,14 @@ export class MyServiceCallingComponent implements OnInit {
     }, this.errorHandler);
   }
 
+  performComplexOperation(a: number, b: number) {
+    this.myMathService.calculateInterestRate(a, 5).subscribe(result => {
+      this.myMathService.calculateTotalInterest(a, b, result).subscribe(interestAmount => {
+        this.result = interestAmount;
+      }, this.errorHandler);
+    }, this.errorHandler);
+  }
+
   private errorHandler(error) {
     this.result = NaN;
     this.userMessage = this.errorMessage;

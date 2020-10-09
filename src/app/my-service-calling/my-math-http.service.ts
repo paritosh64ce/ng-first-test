@@ -18,4 +18,21 @@ export class MyMathHttpService {
     const payload = { a: a, b: b };
     return this.myHttp.post('divideServiceUrl', payload);
   }
+
+  calculateInterestRate(premiumAmount: number, clientCategory: number): Observable<number> {
+    const payload = {
+      premium: premiumAmount,
+      clientCategory: clientCategory
+    };
+    return this.myHttp.post('interetRateUrl', payload);
+  }
+
+  calculateTotalInterest(premiumAmount: number, durationInMonths: number, roi: number): Observable<number> {
+    const payload = {
+      premium: premiumAmount,
+      durationInMonths: durationInMonths,
+      roi: roi
+    };
+    return this.myHttp.post('interetUrl', payload);
+  }
 }
