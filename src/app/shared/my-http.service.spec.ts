@@ -7,6 +7,14 @@ describe('MyHttpService', () => {
 
   let service: MyHttpService;
   const mockedHttpClient = jasmine.createSpyObj('HttpClient', ['get', 'post']);
+  const url = 'my-url';
+  const payload = {
+    'my': 'payload'
+  };
+  const headers = {
+    'user-id': 'some-uuid',
+    'license': 'encrypted-license-key'
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -19,5 +27,17 @@ describe('MyHttpService', () => {
 
   it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+  
+  it('should call http get', () => {
+    service.get(url, headers);
+
+    expect(mockedHttpClient.get).toHaveBeenCalledWith(url, headers);
+  });
+  
+  it('should call http post', () => {
+    service.post(url, payload, headers);
+
+    expect(mockedHttpClient.post).toHaveBeenCalledWith(url, payload, headers);
   });
 });
