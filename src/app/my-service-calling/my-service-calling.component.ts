@@ -13,6 +13,7 @@ export class MyServiceCallingComponent implements OnInit {
   b: number;
   result: number;
   userMessage: string;
+  clientCategory = 5;
   readonly successMessage = 'Result updated';
   readonly errorMessage = 'Error occured at server';
 
@@ -35,7 +36,7 @@ export class MyServiceCallingComponent implements OnInit {
   }
 
   performComplexOperation(a: number, b: number) {
-    this.myMathService.calculateInterestRate(a, 5).subscribe(result => {
+    this.myMathService.calculateInterestRate(a, this.clientCategory).subscribe(result => {
       this.myMathService.calculateTotalInterest(a, b, result).subscribe(interestAmount => {
         this.result = interestAmount;
       }, this.errorHandler);

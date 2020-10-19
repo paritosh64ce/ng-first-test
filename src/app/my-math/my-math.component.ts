@@ -26,12 +26,12 @@ export class MyMathComponent implements OnInit {
   }
 
   divide () {
-    try {
-      this.result = this.a / this.b;
-    } catch (e) {
-      this.logger.error(e);
+    if (this.b === 0) {
+      this.logger.error('Divide by zero');
       this.result = NaN;
+      return;
     }
+    this.result = this.a / this.b;
   }
 
 }

@@ -33,6 +33,6 @@ export class MyMathHttpService {
       durationInMonths: durationInMonths,
       roi: roi
     };
-    return this.myHttp.post('interetUrl', payload);
+    return this.myHttp.post('interestUrl', payload);
   }
 }

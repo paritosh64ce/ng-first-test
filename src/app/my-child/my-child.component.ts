@@ -16,6 +16,12 @@ export class MyChildComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.initializeDefaultValues();
+  }
+
+  private initializeDefaultValues() {
+    this.a = this.a || 10;
+    this.b = this.b || 2;
   }
 
   add() {
