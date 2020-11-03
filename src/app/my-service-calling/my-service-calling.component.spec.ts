@@ -13,6 +13,10 @@ class MockedMathHttpService {
   calculateTotalInterest() {}
 }
 
+class MockLoggerService {
+  error() {}
+}
+
 // #endregion
 
 
@@ -20,14 +24,16 @@ describe('MyServiceCallingComponent', () => {
   let component: MyServiceCallingComponent;
   let fixture: ComponentFixture<MyServiceCallingComponent>;
   let mockMathSvc: MyMathHttpService;
-  const loggerSvc = jasmine.createSpyObj('LoggerService', ['error']);
-
+  let loggerSvc: LoggerService;
+  
+  // why async? - https://v9.angular.io/guide/testing#the-async-beforeeach
+  // more: https://stackoverflow.com/questions/40126729/angular-2-testing-async-function-call-when-to-use
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ MyServiceCallingComponent ],
       providers: [
         { provide: MyMathHttpService, useClass: MockedMathHttpService },
-        { provide: LoggerService, useVale: loggerSvc }
+        { provide: LoggerService, useClass: MockLoggerService }
       ]
     })
     .compileComponents();
@@ -37,6 +43,9 @@ describe('MyServiceCallingComponent', () => {
     fixture = TestBed.createComponent(MyServiceCallingComponent);
     component = fixture.componentInstance;
     mockMathSvc = TestBed.get(MyMathHttpService);
+    loggerSvc = TestBed.get(LoggerService);
+    spyOn(loggerSvc, 'error');
+
     fixture.detectChanges();
   });
 
@@ -57,7 +66,7 @@ describe('MyServiceCallingComponent', () => {
     expect(loggerSvc.error).not.toHaveBeenCalled();
   });
   
-  xit('should call mathSvc to add variables - error scenario', () => {
+  it('should call mathSvc to add variables - error scenario', () => {
     const a = 5, b = 7;
     const fakeResult = 12;
     spyOn(mockMathSvc, 'add').and.callFake(() => {
@@ -68,7 +77,8 @@ describe('MyServiceCallingComponent', () => {
     fixture.detectChanges();
 
     expect(mockMathSvc.add).toHaveBeenCalledWith(a, b);
-    expect(component.result).toBe(NaN);
+    expect(isNaN(component.result)).toBe(true);
+    // expect(component.result).toBe(NaN); - won't work, coz in JavaScript, NaN != NaN
     expect(loggerSvc.error).toHaveBeenCalled();
     expect(component.userMessage).toBe(component.errorMessage);
   });
@@ -91,10 +101,11 @@ describe('MyServiceCallingComponent', () => {
     const interestRate = 9, totalInterest = 5000;
     beforeEach(() => {
       spyOn(mockMathSvc, 'calculateInterestRate').and.returnValue(of(interestRate));
-      spyOn(mockMathSvc, 'calculateTotalInterest').and.returnValue(of(totalInterest));
     });
 
     it('should perform complex operation', () => {
+      spyOn(mockMathSvc, 'calculateTotalInterest').and.returnValue(of(totalInterest));
+
       const premium = 5000, durationMonth = 10;
       component.performComplexOperation(premium, durationMonth);
       fixture.detectChanges();
@@ -104,9 +115,10 @@ describe('MyServiceCallingComponent', () => {
       expect(component.result).toBe(totalInterest);
     });
   
-    xit('should perform complex operation - error scenario', () => {
-
-      // mockMathSvc.calculateInterestRate = jasmine.
+    it('should perform complex operation - error scenario', () => {
+      spyOn(mockMathSvc, 'calculateTotalInterest').and.callFake(() => {
+        return throwError(new Error('error occured'));
+      });
 
       const premium = 5000, durationMonth = 10;
       component.performComplexOperation(premium, durationMonth);
@@ -114,7 +126,9 @@ describe('MyServiceCallingComponent', () => {
 
       expect(mockMathSvc.calculateInterestRate).toHaveBeenCalledWith(premium, component.clientCategory);
       expect(mockMathSvc.calculateTotalInterest).toHaveBeenCalledWith(premium, durationMonth, interestRate);
-      expect(component.result).toBe(totalInterest);
+      expect(isNaN(component.result)).toBeTruthy();
+      expect(component.userMessage).toBe(component.errorMessage);
+      expect(loggerSvc.error).toHaveBeenCalled();
     });
 
   });

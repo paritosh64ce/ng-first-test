@@ -23,7 +23,7 @@ describe('MyChildComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  xit('should initializeDefaultValues', () => {
+  it('should initializeDefaultValues', () => {
     fixture.detectChanges();
     expect(component.a).toBe(10)
     expect(component.b).toBe(2);
