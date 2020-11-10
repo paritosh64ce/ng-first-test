@@ -25,20 +25,16 @@ describe('MyChildComponent', () => {
 
   it('should initializeDefaultValues', () => {
     fixture.detectChanges();
-    expect(component.a).toBe(10)
+    expect(component.a).toBe(10);
     expect(component.b).toBe(2);
   });
 
   it('should add a & b - w/ default values', fakeAsync(() => {
     fixture.detectChanges();
 
-    spyOn(component.addition, 'emit');
-    component
+    const result = component.add();
 
-    component.add();
-    tick();
-  
-    expect(component.addition.emit).toHaveBeenCalledWith(component.a + component.b);
+    expect(result).toBe(component.a + component.b);
   }));
 
   it('should add a & b - with values from parent', fakeAsync(() => {
@@ -47,14 +43,12 @@ describe('MyChildComponent', () => {
     component.b = 5;
     fixture.detectChanges();
 
-    spyOn(component.addition, 'emit');
     expect(component.a).toBe(20);
     expect(component.b).toBe(5);
 
-    component.add();
-    tick();
-  
-    expect(component.addition.emit).toHaveBeenCalledWith(component.a + component.b);
+    const result = component.add();
+
+    expect(result).toBe(component.a + component.b);
   }));
 
   it('should divide a & b', fakeAsync(() => {
@@ -66,7 +60,7 @@ describe('MyChildComponent', () => {
 
     component.divide();
     tick();
-    
+
     expect(component.division.emit).toHaveBeenCalledWith(component.a / component.b);
   }));
 

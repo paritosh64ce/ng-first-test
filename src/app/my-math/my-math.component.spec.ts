@@ -42,7 +42,7 @@ describe('MyMathComponent', () => {
 
     expect(component.result).toBe(3);
   });
-  
+
   it('should divide two numbers - negative scenario', () => {
     const loggerSvc = TestBed.get(LoggerService) as LoggerService;
     spyOn(loggerSvc, 'error');

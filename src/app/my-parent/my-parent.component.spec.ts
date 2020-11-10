@@ -11,6 +11,7 @@ import { MyParentComponent } from './my-parent.component';
 class MyFakeChild {
   @Input() a: number;
   @Input() b: number;
+  add() {}
 }
 
 // #endregion
@@ -36,13 +37,14 @@ describe('MyParentComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should handle onAddition', () => {
+  it('should handle add', () => {
     const fakeResult = 5;
-    component.onAddition(fakeResult);
+    spyOn(component.child, 'add').and.returnValue(fakeResult);
+    component.add();
 
     expect(component.result).toBe(fakeResult);
   });
-  
+
   it('should handle onDivision', () => {
     const fakeResult = 5;
     component.onDivision(fakeResult);

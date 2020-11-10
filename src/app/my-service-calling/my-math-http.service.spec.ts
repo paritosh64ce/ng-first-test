@@ -24,7 +24,7 @@ describe('MyMathHttpService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
-  
+
   it('should call server add method', () => {
     service.add(2, 3);
     expect(mockedMyHttpService.post).toHaveBeenCalled();
@@ -34,7 +34,7 @@ describe('MyMathHttpService', () => {
     expect(args[1].a).toBe(2);
     expect(args[1].b).toBe(3);
   });
-  
+
   it('should call server divide method', () => {
     service.divide(2, 3);
     expect(mockedMyHttpService.post).toHaveBeenCalled();
@@ -44,7 +44,7 @@ describe('MyMathHttpService', () => {
     expect(args[1].a).toBe(2);
     expect(args[1].b).toBe(3);
   });
-  
+
   it('should call server to calculate interetRate', () => {
     const amount = 20000;
     const clientType = 1;
@@ -56,7 +56,7 @@ describe('MyMathHttpService', () => {
     expect(args[1].premium).toBe(amount);
     expect(args[1].clientCategory).toBe(clientType);
   });
-  
+
   it('should call server to calculate TotalInterest', () => {
     const amount = 20000;
     const months = 10;

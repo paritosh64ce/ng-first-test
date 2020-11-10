@@ -10,7 +10,6 @@ export class MyChildComponent implements OnInit {
   @Input() a: number;
   @Input() b: number;
 
-  @Output() addition = new EventEmitter<number>();
   @Output() division = new EventEmitter<number>();
 
   constructor() { }
@@ -26,11 +25,7 @@ export class MyChildComponent implements OnInit {
 
   add() {
     const result = this.a + this.b;
-    // let's assume child has to wait for something and then emits the event
-    // just to understand how we test such scenario with tick and fakeAsync
-    setTimeout(() => {
-      this.addition.emit(result);
-    });
+    return result;
   }
 
   divide() {

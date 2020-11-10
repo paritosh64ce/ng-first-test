@@ -25,7 +25,7 @@ describe('MyServiceCallingComponent', () => {
   let fixture: ComponentFixture<MyServiceCallingComponent>;
   let mockMathSvc: MyMathHttpService;
   let loggerSvc: LoggerService;
-  
+
   // why async? - https://v9.angular.io/guide/testing#the-async-beforeeach
   // more: https://stackoverflow.com/questions/40126729/angular-2-testing-async-function-call-when-to-use
   beforeEach(async(() => {
@@ -54,7 +54,8 @@ describe('MyServiceCallingComponent', () => {
   });
 
   it('should call mathSvc to add variables', () => {
-    const a = 5, b = 7;
+    const a = 5;
+    const b = 7;
     const fakeResult = 12;
     spyOn(mockMathSvc, 'add').and.returnValue(of(fakeResult));
 
@@ -65,13 +66,14 @@ describe('MyServiceCallingComponent', () => {
     expect(component.result).toBe(fakeResult);
     expect(loggerSvc.error).not.toHaveBeenCalled();
   });
-  
+
   it('should call mathSvc to add variables - error scenario', () => {
-    const a = 5, b = 7;
+    const a = 5;
+    const b = 7;
     const fakeResult = 12;
     spyOn(mockMathSvc, 'add').and.callFake(() => {
       return throwError(new Error('error'));
-    })
+    });
 
     component.add(a, b);
     fixture.detectChanges();
@@ -82,9 +84,10 @@ describe('MyServiceCallingComponent', () => {
     expect(loggerSvc.error).toHaveBeenCalled();
     expect(component.userMessage).toBe(component.errorMessage);
   });
-  
+
   it('should call mathSvc to divide variables', () => {
-    const a = 45, b = 9;
+    const a = 45;
+    const b = 9;
     const fakeResult = 5;
     spyOn(mockMathSvc, 'divide').and.returnValue(of(fakeResult));
 
@@ -98,7 +101,8 @@ describe('MyServiceCallingComponent', () => {
 
   describe('complex operation', () => {
 
-    const interestRate = 9, totalInterest = 5000;
+    const interestRate = 9;
+    const totalInterest = 5000;
     beforeEach(() => {
       spyOn(mockMathSvc, 'calculateInterestRate').and.returnValue(of(interestRate));
     });
@@ -106,7 +110,8 @@ describe('MyServiceCallingComponent', () => {
     it('should perform complex operation', () => {
       spyOn(mockMathSvc, 'calculateTotalInterest').and.returnValue(of(totalInterest));
 
-      const premium = 5000, durationMonth = 10;
+      const premium = 5000;
+      const durationMonth = 10;
       component.performComplexOperation(premium, durationMonth);
       fixture.detectChanges();
 
@@ -114,13 +119,14 @@ describe('MyServiceCallingComponent', () => {
       expect(mockMathSvc.calculateTotalInterest).toHaveBeenCalledWith(premium, durationMonth, interestRate);
       expect(component.result).toBe(totalInterest);
     });
-  
+
     it('should perform complex operation - error scenario', () => {
       spyOn(mockMathSvc, 'calculateTotalInterest').and.callFake(() => {
         return throwError(new Error('error occured'));
       });
 
-      const premium = 5000, durationMonth = 10;
+      const premium = 5000;
+      const durationMonth = 10;
       component.performComplexOperation(premium, durationMonth);
       fixture.detectChanges();
 
@@ -132,5 +138,5 @@ describe('MyServiceCallingComponent', () => {
     });
 
   });
-  
+
 });
