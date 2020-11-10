@@ -21,11 +21,11 @@ export class MyMathComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  add () {
+  add() {
     this.result = this.a + this.b;
   }
 
-  divide () {
+  divide() {
     if (this.b === 0) {
       this.logger.error('Divide by zero');
       this.result = NaN;

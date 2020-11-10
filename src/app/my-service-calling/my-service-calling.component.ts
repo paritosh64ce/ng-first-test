@@ -46,7 +46,7 @@ export class MyServiceCallingComponent implements OnInit {
   private errorHandler = (error) => {
     this.result = NaN;
     this.userMessage = this.errorMessage;
-    this.logger.error('internal server error')
+    this.logger.error('internal server error');
   }
 
 }

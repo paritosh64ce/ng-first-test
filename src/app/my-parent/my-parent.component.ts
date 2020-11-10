@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MyChildComponent } from '../my-child/my-child.component';
 
 @Component({
   selector: 'app-my-parent',
@@ -11,13 +12,18 @@ export class MyParentComponent implements OnInit {
   b: number;
   result: number;
 
-  constructor() { }
+  @ViewChild('child') child: MyChildComponent;
+
+  constructor() {
+    this.a = 5;
+    this.b = 10;
+  }
 
   ngOnInit(): void {
   }
 
-  onAddition($event: number) {
-    this.result = $event;
+  add() {
+    this.result = this.child.add();
   }
 
   onDivision($event: number) {
