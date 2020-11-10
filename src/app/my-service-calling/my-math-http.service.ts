@@ -13,7 +13,7 @@ export class MyMathHttpService {
     const payload = { a: a, b: b };
     return this.myHttp.post('addServiceUrl', payload);
   }
-  
+
   divide(a: number, b: number): Observable<number> {
     const payload = { a: a, b: b };
     return this.myHttp.post('divideServiceUrl', payload);
