@@ -8,7 +8,7 @@ import { MyParentComponent } from './my-parent.component';
 @Component({
   selector: 'app-my-child'
 })
-class MyFakeChild {
+class MyFakeChildComponent {
   @Input() a: number;
   @Input() b: number;
   add() {}
@@ -22,7 +22,7 @@ describe('MyParentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MyParentComponent, MyFakeChild ]
+      declarations: [ MyParentComponent, MyFakeChildComponent ]
     })
     .compileComponents();
   }));
