@@ -22,8 +22,8 @@ The sole intention of this project is to show various scenarios of writing Angul
     - Used by components to log various messages. Application doesn't directly logs usinng `console.log`/`error`
 
 1. `MyParentComponent`
-    - Parent of `MyChildComponent`
+    - Parent of `MyChildComponent`. Calls child component's method using by getting instance of child usinng `@ViewChild`.
 
 1. `MyChildComponent`
-    - Child of `MyParentComponent`
+    - Child of `MyParentComponent`, emits event to its parent using `EventEmitter`
 
